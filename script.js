@@ -7,7 +7,7 @@ const CONFIG = {
     phone: '+91 7018465381',
     whatsappNumber: '917018465381',
     email: 'info@bemytraveller.com',
-    location: 'Manali, Himachal Pradesh, India'
+    location: 'Pan-India & Worldwide Tour Specialist (Head Office: Manali, HP)'
 };
 
 // DOM Elements
@@ -96,11 +96,6 @@ function validateForm() {
     const fullName = document.getElementById('fullName').value.trim();
     const email = document.getElementById('email').value.trim();
     const phone = document.getElementById('phone').value.trim();
-    const travelers = document.getElementById('travelers').value;
-    const travelDate = document.getElementById('travelDate').value;
-    const duration = document.getElementById('duration').value;
-    const budget = document.getElementById('budget').value;
-    const activities = document.querySelectorAll('input[name="activities"]:checked').length;
 
     let isValid = true;
 
@@ -126,32 +121,6 @@ function validateForm() {
         isValid = false;
     } else {
         clearError('phone');
-    }
-
-    // Validate other fields
-    if (!travelers) {
-        alert('Please select number of travelers');
-        isValid = false;
-    }
-
-    if (!travelDate) {
-        alert('Please select travel date');
-        isValid = false;
-    }
-
-    if (!duration) {
-        alert('Please select duration of stay');
-        isValid = false;
-    }
-
-    if (!budget) {
-        alert('Please select budget');
-        isValid = false;
-    }
-
-    if (activities === 0) {
-        alert('Please select at least one activity/interest');
-        isValid = false;
     }
 
     return isValid;
@@ -245,6 +214,7 @@ function getFormData() {
         email: document.getElementById('email')?.value || '',
         phone: document.getElementById('phone')?.value || '',
         city: document.getElementById('city')?.value || '',
+        destination: document.getElementById('destination')?.value || '',
         travelers: document.getElementById('travelers')?.value || '',
         travelDate: document.getElementById('travelDate')?.value || '',
         duration: document.getElementById('duration')?.value || '',
@@ -315,20 +285,21 @@ function updateDynamicContent() {
     const form = document.getElementById('inquiryForm');
     if (!form) return;
 
-    const travelers = document.getElementById('travelers').value;
-    const travelDate = document.getElementById('travelDate').value;
-    const duration = document.getElementById('duration').value;
-    const budget = document.getElementById('budget').value;
+    const destination = document.getElementById('destination')?.value || '';
+    const travelers = document.getElementById('travelers')?.value || '';
+    const travelDate = document.getElementById('travelDate')?.value || '';
+    const duration = document.getElementById('duration')?.value || '';
+    const budget = document.getElementById('budget')?.value || '';
     const activities = Array.from(document.querySelectorAll('input[name="activities"]:checked'))
         .map(cb => cb.value);
     const accommodation = document.querySelector('input[name="accommodation"]:checked')?.value;
 
     updateSummary({
-        travelers, travelDate, duration, budget, activities, accommodation
+        destination, travelers, travelDate, duration, budget, activities, accommodation
     });
 
     updatePackageRecommendations({
-        travelers, activities, budget
+        destination, travelers, activities, budget
     });
 }
 
@@ -336,10 +307,22 @@ function updateSummary(data) {
     const summaryContent = document.getElementById('summaryContent');
     if (!summaryContent) return;
 
-    if (!data.travelers) {
+    if (!data.travelers && !data.destination) {
         summaryContent.innerHTML = '<p class="placeholder">Fill the form to see your trip summary</p>';
         return;
     }
+
+    const destinationText = {
+        'himachal': 'Himachal Pradesh',
+        'kashmir-ladakh': 'Kashmir & Ladakh',
+        'kerala-south': 'Kerala & South India',
+        'goa-beach': 'Goa & Beaches',
+        'rajasthan': 'Rajasthan Heritage',
+        'uttarakhand': 'Uttarakhand',
+        'northeast': 'Northeast India',
+        'golden-triangle': 'Golden Triangle',
+        'international': 'International / Custom'
+    };
 
     const travelersText = {
         '1': '1 Person',
@@ -358,13 +341,20 @@ function updateSummary(data) {
     };
 
     const budgetText = {
-        'economy': 'Economy (₹5000 - ₹10000)',
-        'comfort': 'Comfort (₹10000 - ₹25000)',
-        'premium': 'Premium (₹25000 - ₹50000)',
-        'luxury': 'Luxury (₹50000+)'
+        'economy': 'Economy (₹5k - ₹12k)',
+        'comfort': 'Comfort (₹12k - ₹28k)',
+        'premium': 'Premium (₹28k - ₹55k)',
+        'luxury': 'Luxury (₹55k+)'
     };
 
     let html = '';
+
+    if (data.destination) {
+        html += `<div class="summary-item">
+            <span class="summary-label">Destination:</span>
+            <span class="summary-value">${destinationText[data.destination] || data.destination}</span>
+        </div>`;
+    }
 
     if (data.travelers) {
         html += `<div class="summary-item">
@@ -440,52 +430,56 @@ function updatePackageRecommendations(data) {
 
     let recommendations = [];
 
+    // Recommend based on destination
+    if (data.destination === 'kerala-south' || data.destination === 'goa-beach') {
+        recommendations.push({
+            name: '🌴 Tropical Coastal Package',
+            description: 'Backwaters, houseboats, sandy beaches & seaside resorts',
+            features: ['Private Houseboat Stay', 'Beach Resort Booking', 'Water Sports & Cruises', 'Sightseeing & Transfers']
+        });
+    } else if (data.destination === 'rajasthan' || data.destination === 'golden-triangle') {
+        recommendations.push({
+            name: '🏰 Royal Heritage Package',
+            description: 'Palaces, desert camps, forts & cultural performances',
+            features: ['Heritage Hotel Stay', 'Desert Safari & Camping', 'Fort & Palace Guided Tours', 'Private AC Cab']
+        });
+    } else if (data.destination === 'kashmir-ladakh' || data.destination === 'himachal') {
+        recommendations.push({
+            name: '🏔️ Himalayan Paradise Escape',
+            description: 'Snow peaks, valley stays, bike trips & mountain adventures',
+            features: ['Valley View Resort Stay', 'Rohtang/Gulmarg/Pangong Excursion', 'Bonfire & Camping', 'All Private Transfers']
+        });
+    }
+
     // Recommend based on activities
     if (data.activities.includes('trekking') || data.activities.includes('adventure')) {
         recommendations.push({
-            name: '🏔️ Adventure Package',
-            description: 'Perfect for thrill-seekers and adventure enthusiasts',
-            features: ['Mountain trekking', 'Adventure sports', 'Camping experiences', 'Rock climbing']
+            name: '🧗 Extreme Adventure Package',
+            description: 'Perfect for thrill-seekers & outdoor lovers',
+            features: ['Guided Trekking & Camping', 'Rafting / Paragliding', 'Bonfire & Stargazing', 'Experienced Expedition Leader']
         });
     }
 
-    if (data.activities.includes('relaxation') || data.activities.includes('photography')) {
-        recommendations.push({
-            name: '🌿 Relaxation & Nature Package',
-            description: 'Ideal for peace and natural beauty lovers',
-            features: ['Nature walks', 'Photography tours', 'Spa treatments', 'Yoga sessions']
-        });
-    }
-
-    if (data.activities.includes('cultural')) {
-        recommendations.push({
-            name: '🏛️ Cultural Package',
-            description: 'Explore local traditions and heritage',
-            features: ['Temple visits', 'Local cuisine tours', 'Cultural programs', 'Folk art sessions']
-        });
-    }
-
-    // Add budget-based recommendations
     if (data.budget === 'luxury') {
         recommendations.push({
-            name: '👑 Luxury Escape',
-            description: 'Premium experience with top-class amenities',
-            features: ['5-star hotels', 'Personal guide', 'Helicopter tours', 'Gourmet dining']
+            name: '👑 Royal Luxury Signature Tour',
+            description: 'Ultra-premium experience with 5-star hospitality',
+            features: ['5-Star Luxury Stays', 'Private Luxury Vehicle', 'VIP Transfers & Dining', 'Dedicated Concierge']
         });
     }
 
-    // Default recommendations if no activities selected
+    // Default recommendations if none match
     if (recommendations.length === 0) {
         recommendations = [
             {
-                name: '🎒 Discovery Package',
-                description: 'Complete Manali experience for beginners',
-                features: ['Guided city tour', 'Popular trekking', 'Local market visit', 'Adventure base camp']
+                name: '✈️ All-India Classic Discovery',
+                description: 'Best-selling customizable itinerary for families & couples',
+                features: ['Handpicked 3★/4★ Hotels', 'Private AC Sedan/SUV', 'Sightseeing & Breakfast', '24/7 On-Trip Manager']
             },
             {
-                name: '🌟 Premium Collection',
-                description: 'Curated experiences for diverse interests',
-                features: ['Mixed activities', 'Quality accommodation', 'Professional guides', '24/7 support']
+                name: '🌟 Premium Custom Collection',
+                description: 'Tailor-made journey customized to your exact preferences',
+                features: ['Flexible Travel Dates', 'Luxury Stay Upgrades', 'Special Couple/Group Setups', 'Direct WhatsApp Assistance']
             }
         ];
     }
@@ -547,7 +541,7 @@ window.addEventListener('click', function(event) {
 
 function openWhatsAppChat() {
     const phoneNumber = CONFIG.whatsappNumber;
-    const message = encodeURIComponent('Hi Be My Traveller! I\'m interested in planning a trip to Manali. Can you help me?');
+    const message = encodeURIComponent('Hi Be My Traveller! I\'m interested in planning an All India tour package. Can you help me with custom options and pricing?');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
 
@@ -561,17 +555,19 @@ function openWhatsAppInquiry() {
     const formData = getFormData();
     const fullName = formData.fullName || 'Customer';
     const phone = formData.phone || 'Not specified';
+    const destination = formData.destination || 'All India Tour';
     const travelers = formData.travelers || 'Not specified';
     const travelDate = formData.travelDate || 'Not specified';
     const duration = formData.duration || 'Not specified';
     const budget = formData.budget || 'Not specified';
     const accommodation = formData.accommodation || 'Not specified';
-    const activities = formData.activities.join(', ') || 'General sightseeing';
+    const activities = formData.activities.join(', ') || 'Sightseeing & Leisure';
 
     const message = encodeURIComponent(
-        `🏔️ *Be My Traveller - Tour Inquiry*\n\n` +
+        `✈️ *Be My Traveller - All India Tour Inquiry*\n\n` +
         `👤 *Name:* ${fullName}\n` +
         `📞 *Contact:* ${phone}\n` +
+        `📍 *Destination:* ${destination}\n` +
         `👥 *Travelers:* ${travelers}\n` +
         `📅 *Travel Date:* ${travelDate}\n` +
         `⏱️ *Duration:* ${duration}\n` +

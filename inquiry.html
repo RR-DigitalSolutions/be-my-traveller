@@ -33,8 +33,8 @@
     <!-- Page Header -->
     <section class="inquiry-hero">
         <div class="container">
-            <h1>Plan Your Dream Tour to Manali</h1>
-            <p>Let us help you create an unforgettable adventure</p>
+            <h1>Plan Your Dream Tour Across All India</h1>
+            <p>Customized packages for Himachal, Kashmir, Ladakh, Kerala, Goa, Rajasthan & More</p>
         </div>
     </section>
 
@@ -92,6 +92,24 @@
 
                                 <div class="form-row">
                                     <div class="form-group">
+                                        <label for="destination">Preferred Destination / Region *</label>
+                                        <select id="destination" name="destination" required onchange="updateDynamicContent()">
+                                            <option value="">Select Destination...</option>
+                                            <option value="himachal">Himachal Pradesh (Manali, Shimla, Spiti)</option>
+                                            <option value="kashmir-ladakh">Kashmir & Leh Ladakh Expeditions</option>
+                                            <option value="kerala-south">Kerala & South India (Coorg, Ooty, Wayanad)</option>
+                                            <option value="goa-beach">Goa & Beach Getaways</option>
+                                            <option value="rajasthan">Rajasthan Heritage & Desert Safaris</option>
+                                            <option value="uttarakhand">Uttarakhand (Rishikesh, Nainital, Char Dham)</option>
+                                            <option value="northeast">Northeast India & Sikkim</option>
+                                            <option value="golden-triangle">Golden Triangle (Delhi, Agra, Jaipur)</option>
+                                            <option value="international">International / Custom Destination</option>
+                                        </select>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
                                         <label for="travelers">Number of Travelers *</label>
                                         <select id="travelers" name="travelers" required onchange="updateDynamicContent()">
                                             <option value="">Select...</option>
@@ -124,10 +142,10 @@
                                         <label for="budget">Estimated Budget (Per Person) *</label>
                                         <select id="budget" name="budget" required onchange="updateDynamicContent()">
                                             <option value="">Select...</option>
-                                            <option value="economy">Economy (₹5000 - ₹10000)</option>
-                                            <option value="comfort">Comfort (₹10000 - ₹25000)</option>
-                                            <option value="premium">Premium (₹25000 - ₹50000)</option>
-                                            <option value="luxury">Luxury (₹50000+)</option>
+                                            <option value="economy">Economy (₹5,000 - ₹12,000)</option>
+                                            <option value="comfort">Comfort (₹12,000 - ₹28,000)</option>
+                                            <option value="premium">Premium (₹28,000 - ₹55,000)</option>
+                                            <option value="luxury">Luxury (₹55,000+)</option>
                                         </select>
                                     </div>
                                 </div>
