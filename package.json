@@ -1,0 +1,32 @@
+{
+  "name": "be-my-traveller",
+  "version": "1.0.0",
+  "description": "Modern travel company website for Be My Traveller - Manali",
+  "main": "script.js",
+  "scripts": {
+    "start": "open index.html",
+    "build": "echo 'No build needed - pure HTML/CSS/JS'",
+    "deploy": "git add . && git commit -m 'Update website' && git push origin main"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/yourusername/be-my-traveller.git"
+  },
+  "keywords": [
+    "travel",
+    "manali",
+    "tourism",
+    "tour-packages",
+    "adventure",
+    "himachal-pradesh"
+  ],
+  "author": "Be My Traveller",
+  "email": "info@bemytraveller.com",
+  "license": "MIT",
+  "devDependencies": {
+    "prettier": "^2.8.0"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  }
+}

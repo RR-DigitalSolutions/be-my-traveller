@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Plan Your Tour - Be My Traveller</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-mountain"></i>
+                <span>Be My Traveller</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="index.html#about" class="nav-link">About</a></li>
+                <li><a href="index.html#contact" class="nav-link">Contact</a></li>
+                <li><a href="inquiry.html" class="nav-link cta-btn active">Plan Your Tour</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Page Header -->
+    <section class="inquiry-hero">
+        <div class="container">
+            <h1>Plan Your Dream Tour to Manali</h1>
+            <p>Let us help you create an unforgettable adventure</p>
+        </div>
+    </section>
+
+    <!-- Inquiry Form Section -->
+    <section class="inquiry-section">
+        <div class="container">
+            <div class="inquiry-wrapper">
+                <!-- Form Column -->
+                <div class="form-column">
+                    <div class="form-card">
+                        <h2 class="form-title">
+                            <i class="fas fa-edit"></i> Tell Us About Your Journey
+                        </h2>
+
+                        <form id="inquiryForm" class="inquiry-form-full">
+                            <!-- Personal Information -->
+                            <div class="form-section">
+                                <h3>
+                                    <span class="step-number">1</span>
+                                    Personal Information
+                                </h3>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="fullName">Full Name *</label>
+                                        <input type="text" id="fullName" name="fullName" placeholder="John Doe" required>
+                                        <span class="error-message" id="error-fullName"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="email">Email Address *</label>
+                                        <input type="email" id="email" name="email" placeholder="john@example.com" required>
+                                        <span class="error-message" id="error-email"></span>
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="phone">Phone Number *</label>
+                                        <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                                        <span class="error-message" id="error-phone"></span>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="city">City *</label>
+                                        <input type="text" id="city" name="city" placeholder="Your City" required>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Travel Details -->
+                            <div class="form-section">
+                                <h3>
+                                    <span class="step-number">2</span>
+                                    Travel Details
+                                </h3>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="travelers">Number of Travelers *</label>
+                                        <select id="travelers" name="travelers" required onchange="updateDynamicContent()">
+                                            <option value="">Select...</option>
+                                            <option value="1">1 Person</option>
+                                            <option value="2-3">2-3 People</option>
+                                            <option value="4-6">4-6 People</option>
+                                            <option value="7-10">7-10 People</option>
+                                            <option value="10+">10+ People (Group)</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="travelDate">Preferred Travel Date *</label>
+                                        <input type="date" id="travelDate" name="travelDate" required onchange="updateDynamicContent()">
+                                    </div>
+                                </div>
+
+                                <div class="form-row">
+                                    <div class="form-group">
+                                        <label for="duration">Duration of Stay *</label>
+                                        <select id="duration" name="duration" required onchange="updateDynamicContent()">
+                                            <option value="">Select...</option>
+                                            <option value="1-2">1-2 Days</option>
+                                            <option value="3-5">3-5 Days</option>
+                                            <option value="1-week">1 Week</option>
+                                            <option value="2-weeks">2 Weeks</option>
+                                            <option value="custom">Custom Duration</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="budget">Estimated Budget (Per Person) *</label>
+                                        <select id="budget" name="budget" required onchange="updateDynamicContent()">
+                                            <option value="">Select...</option>
+                                            <option value="economy">Economy (₹5000 - ₹10000)</option>
+                                            <option value="comfort">Comfort (₹10000 - ₹25000)</option>
+                                            <option value="premium">Premium (₹25000 - ₹50000)</option>
+                                            <option value="luxury">Luxury (₹50000+)</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Tour Preferences -->
+                            <div class="form-section">
+                                <h3>
+                                    <span class="step-number">3</span>
+                                    Tour Preferences
+                                </h3>
+
+                                <div class="form-group">
+                                    <label>Activities & Interests *</label>
+                                    <div class="checkbox-grid">
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="activities" value="trekking" onchange="updateDynamicContent()">
+                                            <span class="checkbox-label">
+                                                <i class="fas fa-hiking"></i> Trekking
+                                            </span>
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="activities" value="camping" onchange="updateDynamicContent()">
+                                            <span class="checkbox-label">
+                                                <i class="fas fa-campground"></i> Camping
+                                            </span>
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="activities" value="photography" onchange="updateDynamicContent()">
+                                            <span class="checkbox-label">
+                                                <i class="fas fa-camera"></i> Photography
+                                            </span>
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="activities" value="adventure" onchange="updateDynamicContent()">
+                                            <span class="checkbox-label">
+                                                <i class="fas fa-parachute-box"></i> Adventure Sports
+                                            </span>
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="activities" value="cultural" onchange="updateDynamicContent()">
+                                            <span class="checkbox-label">
+                                                <i class="fas fa-landmark"></i> Cultural Tours
+                                            </span>
+                                        </label>
+                                        <label class="checkbox-item">
+                                            <input type="checkbox" name="activities" value="relaxation" onchange="updateDynamicContent()">
+                                            <span class="checkbox-label">
+                                                <i class="fas fa-spa"></i> Relaxation
+                                            </span>
+                                        </label>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="accommodation">Accommodation Preference *</label>
+                                    <div class="radio-group">
+                                        <label class="radio-item">
+                                            <input type="radio" name="accommodation" value="hotel" checked onchange="updateDynamicContent()">
+                                            <span><i class="fas fa-hotel"></i> Hotel</span>
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="accommodation" value="resort" onchange="updateDynamicContent()">
+                                            <span><i class="fas fa-building"></i> Resort</span>
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="accommodation" value="guesthouse" onchange="updateDynamicContent()">
+                                            <span><i class="fas fa-house"></i> Guest House</span>
+                                        </label>
+                                        <label class="radio-item">
+                                            <input type="radio" name="accommodation" value="homestay" onchange="updateDynamicContent()">
+                                            <span><i class="fas fa-home"></i> Homestay</span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Special Requirements -->
+                            <div class="form-section">
+                                <h3>
+                                    <span class="step-number">4</span>
+                                    Special Requirements
+                                </h3>
+
+                                <div class="form-group">
+                                    <label for="dietaryNeeds">Dietary Restrictions</label>
+                                    <select id="dietaryNeeds" name="dietaryNeeds" onchange="updateDynamicContent()">
+                                        <option value="">Select...</option>
+                                        <option value="vegetarian">Vegetarian</option>
+                                        <option value="vegan">Vegan</option>
+                                        <option value="non-vegetarian">Non-Vegetarian</option>
+                                        <option value="halal">Halal</option>
+                                        <option value="jain">Jain</option>
+                                        <option value="other">Other</option>
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="specialRequests">Additional Notes or Special Requests</label>
+                                    <textarea id="specialRequests" name="specialRequests" placeholder="Tell us anything else we should know..." rows="4"></textarea>
+                                </div>
+
+                                <div class="checkbox-group">
+                                    <label class="checkbox-item">
+                                        <input type="checkbox" name="newsletter" id="newsletter">
+                                        <span>Keep me updated with travel deals and offers</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <!-- Form Actions -->
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-primary btn-large">
+                                    <i class="fas fa-paper-plane"></i> Submit Inquiry
+                                </button>
+                                <button type="button" class="btn btn-secondary btn-large" onclick="openWhatsAppInquiry()">
+                                    <i class="fab fa-whatsapp"></i> Send via WhatsApp
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <!-- Sidebar Column -->
+                <div class="sidebar-column">
+                    <!-- Dynamic Summary -->
+                    <div class="summary-card">
+                        <h3>
+                            <i class="fas fa-list-check"></i> Your Trip Summary
+                        </h3>
+                        <div id="summaryContent" class="summary-content">
+                            <p class="placeholder">Fill the form to see your trip summary</p>
+                        </div>
+                    </div>
+
+                    <!-- Package Recommendations -->
+                    <div class="packages-card">
+                        <h3>
+                            <i class="fas fa-gift"></i> Recommended Packages
+                        </h3>
+                        <div id="packagesContent" class="packages-content">
+                            <div class="package-item">
+                                <h4>Adventure Package</h4>
+                                <p>Perfect for thrill-seekers and adventure enthusiasts</p>
+                                <ul>
+                                    <li>Trekking expeditions</li>
+                                    <li>Adventure sports</li>
+                                    <li>Mountain biking</li>
+                                </ul>
+                            </div>
+                            <div class="package-item">
+                                <h4>Relaxation Package</h4>
+                                <p>Ideal for those seeking peace and tranquility</p>
+                                <ul>
+                                    <li>Spa treatments</li>
+                                    <li>Yoga sessions</li>
+                                    <li>Nature walks</li>
+                                </ul>
+                            </div>
+                            <div class="package-item">
+                                <h4>Cultural Package</h4>
+                                <p>Explore local traditions and heritage</p>
+                                <ul>
+                                    <li>Temple visits</li>
+                                    <li>Local cuisine tours</li>
+                                    <li>Cultural programs</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Quick Facts -->
+                    <div class="facts-card">
+                        <h3>
+                            <i class="fas fa-info-circle"></i> About Manali
+                        </h3>
+                        <div class="facts-list">
+                            <div class="fact-item">
+                                <i class="fas fa-thermometer"></i>
+                                <span>Temperature: 5-20°C</span>
+                            </div>
+                            <div class="fact-item">
+                                <i class="fas fa-ruler"></i>
+                                <span>Altitude: 2,050m</span>
+                            </div>
+                            <div class="fact-item">
+                                <i class="fas fa-calendar"></i>
+                                <span>Best Season: March-October</span>
+                            </div>
+                            <div class="fact-item">
+                                <i class="fas fa-clock"></i>
+                                <span>Timezone: IST (UTC+5:30)</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Quick Links -->
+                    <div class="contact-quick">
+                        <h3>Have Questions?</h3>
+                        <div class="quick-contacts">
+                            <a href="tel:+919876543210" class="quick-contact-btn">
+                                <i class="fas fa-phone"></i> Call Us
+                            </a>
+                            <a href="https://wa.me/919876543210" target="_blank" class="quick-contact-btn whatsapp">
+                                <i class="fab fa-whatsapp"></i> WhatsApp
+                            </a>
+                            <a href="mailto:info@bemytraveller.com" class="quick-contact-btn">
+                                <i class="fas fa-envelope"></i> Email
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal">
+        <div class="modal-content success-modal">
+            <div class="success-icon">
+                <i class="fas fa-check-circle"></i>
+            </div>
+            <h2>Inquiry Submitted Successfully!</h2>
+            <p>Thank you for your interest. Our team will get back to you shortly.</p>
+            <p class="contact-info">You can also reach us directly:</p>
+            <div class="success-contacts">
+                <a href="tel:+919876543210" class="contact-link">
+                    <i class="fas fa-phone"></i> +91 9876543210
+                </a>
+                <a href="https://wa.me/919876543210" target="_blank" class="contact-link">
+                    <i class="fab fa-whatsapp"></i> WhatsApp
+                </a>
+            </div>
+            <button class="btn btn-primary" onclick="closeSuccessModal()">Back to Home</button>
+        </div>
+    </div>
+
+    <!-- WhatsApp Modal -->
+    <div id="whatsappModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2><i class="fab fa-whatsapp"></i> Contact via WhatsApp</h2>
+                <button class="close-modal" onclick="document.getElementById('whatsappModal').style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="whatsapp-options">
+                <p>Choose how you'd like to connect with us:</p>
+                <a href="https://wa.me/919876543210?text=Hi%20Be%20My%20Traveller!%20I'm%20interested%20in%20planning%20a%20trip%20to%20Manali" target="_blank" class="whatsapp-option">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>
+                        <strong>Chat Now</strong>
+                        <small>Direct message on WhatsApp</small>
+                    </span>
+                </a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Be My Traveller</h4>
+                    <p>Creating unforgettable memories in the heart of Himalayas</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="index.html#about">About</a></li>
+                        <li><a href="inquiry.html">Book Tour</a></li>
+                        <li><a href="index.html#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Contact</h4>
+                    <p><a href="tel:+919876543210">📞 +91 9876543210</a></p>
+                    <p><a href="mailto:info@bemytraveller.com">📧 info@bemytraveller.com</a></p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Be My Traveller. All rights reserved. | Made with ❤️ in Manali</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

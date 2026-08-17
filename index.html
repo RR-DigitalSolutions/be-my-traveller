@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Be My Traveller - Adventure Awaits in Manali</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Navigation Bar -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                <i class="fas fa-mountain"></i>
+                <span>Be My Traveller</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home" class="nav-link">Home</a></li>
+                <li><a href="#about" class="nav-link">About</a></li>
+                <li><a href="#contact" class="nav-link">Contact</a></li>
+                <li><a href="inquiry.html" class="nav-link cta-btn">Plan Your Tour</a></li>
+            </ul>
+            <div class="hamburger">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section - Coming Soon -->
+    <section id="home" class="hero">
+        <div class="stars"></div>
+        <div class="mountain-bg"></div>
+        
+        <div class="hero-content">
+            <div class="container">
+                <div class="hero-text">
+                    <h1 class="hero-title">
+                        <span class="word">Adventure</span>
+                        <span class="word">Awaits</span>
+                    </h1>
+                    <p class="hero-subtitle">Experience the Magic of Manali</p>
+                    
+                    <div class="coming-soon-badge">
+                        <span class="badge-icon">🚀</span>
+                        <span class="badge-text">Coming Very Soon</span>
+                    </div>
+
+                    <div class="countdown-timer">
+                        <div class="timer-title">We're preparing something extraordinary...</div>
+                        <div class="timer-boxes">
+                            <div class="timer-box">
+                                <span class="timer-value" id="days">00</span>
+                                <span class="timer-label">Days</span>
+                            </div>
+                            <div class="timer-box">
+                                <span class="timer-value" id="hours">00</span>
+                                <span class="timer-label">Hours</span>
+                            </div>
+                            <div class="timer-box">
+                                <span class="timer-value" id="minutes">00</span>
+                                <span class="timer-label">Minutes</span>
+                            </div>
+                            <div class="timer-box">
+                                <span class="timer-value" id="seconds">00</span>
+                                <span class="timer-label">Seconds</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="hero-buttons">
+                        <button class="btn btn-primary" onclick="document.getElementById('inquiry-modal').style.display='flex'">
+                            <i class="fas fa-paper-plane"></i> Express Interest
+                        </button>
+                        <button class="btn btn-secondary" onclick="scrollToContact()">
+                            <i class="fas fa-phone"></i> Contact Us
+                        </button>
+                    </div>
+                </div>
+
+                <div class="hero-image">
+                    <div class="floating-card">
+                        <div class="card-content">
+                            <i class="fas fa-mountain"></i>
+                            <h3>Explore Manali</h3>
+                            <p>Majestic peaks, pristine snow, and unforgettable memories await.</p>
+                        </div>
+                    </div>
+                    <div class="floating-card card-2">
+                        <div class="card-content">
+                            <i class="fas fa-tree"></i>
+                            <h3>Nature's Paradise</h3>
+                            <p>Discover lush valleys and serene landscapes.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Floating Elements -->
+        <div class="floating-element element-1">✈️</div>
+        <div class="floating-element element-2">🏔️</div>
+        <div class="floating-element element-3">🌲</div>
+    </section>
+
+    <!-- About Section -->
+    <section id="about" class="about-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Why Choose Be My Traveller?</h2>
+                <p>Your gateway to unforgettable Manali experiences</p>
+            </div>
+
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-compass"></i>
+                    </div>
+                    <h3>Expert Guides</h3>
+                    <p>Local expertise with international standards ensuring the best tour experience.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-shield-alt"></i>
+                    </div>
+                    <h3>Safe & Secure</h3>
+                    <p>Your safety is our priority with comprehensive travel insurance coverage.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-star"></i>
+                    </div>
+                    <h3>Premium Experience</h3>
+                    <p>Curated packages with luxury accommodations and personalized service.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-users"></i>
+                    </div>
+                    <h3>Community Focus</h3>
+                    <p>Supporting local communities and sustainable tourism practices.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-clock"></i>
+                    </div>
+                    <h3>24/7 Support</h3>
+                    <p>Round-the-clock customer support for all your travel needs.</p>
+                </div>
+
+                <div class="feature-card">
+                    <div class="feature-icon">
+                        <i class="fas fa-heart"></i>
+                    </div>
+                    <h3>Passion Driven</h3>
+                    <p>We travel because we love it, and we want to share that passion with you.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact & Address Section -->
+    <section id="contact" class="contact-section">
+        <div class="container">
+            <div class="section-header">
+                <h2>Get In Touch</h2>
+                <p>Find us in the heart of Manali</p>
+            </div>
+
+            <div class="contact-content">
+                <div class="address-card">
+                    <div class="address-icon">
+                        <i class="fas fa-map-marker-alt"></i>
+                    </div>
+                    <div class="address-details">
+                        <h3>Our Location</h3>
+                        <p class="address">
+                            <strong>Be My Traveller</strong><br>
+                            Manali, Himachal Pradesh<br>
+                            India - 175131
+                        </p>
+                        <p class="region-info">
+                            📍 Located in the stunning Kullu Valley<br>
+                            🏔️ Gateway to Rohtang Pass & Adventure Sports
+                        </p>
+                    </div>
+                </div>
+
+                <div class="contact-details">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div>
+                            <h4>Phone</h4>
+                            <p><a href="tel:+919876543210">+91 9876543210</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div>
+                            <h4>Email</h4>
+                            <p><a href="mailto:info@bemytraveller.com">info@bemytraveller.com</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div>
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/919876543210" target="_blank">Chat with us</a></p>
+                        </div>
+                    </div>
+
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-clock"></i>
+                        </div>
+                        <div>
+                            <h4>Hours</h4>
+                            <p>Mon - Sun: 9:00 AM - 10:00 PM IST</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="map-container">
+                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3345.5556!2d77.1804!3d32.2419!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x390ce5a6c67fffff%3A0x76d4e1fbe4e1be3!2sManali%2C%20Himachal%20Pradesh!5e0!3m2!1sen!2sin!4v1234567890" width="100%" height="400" style="border:0; border-radius: 15px;" allowfullscreen="" loading="lazy"></iframe>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Inquiry Modal -->
+    <div id="inquiry-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Quick Inquiry</h2>
+                <button class="close-modal" onclick="document.getElementById('inquiry-modal').style.display='none'">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <form class="inquiry-form" onsubmit="handleQuickInquiry(event)">
+                <div class="form-group">
+                    <input type="text" placeholder="Your Name" required>
+                </div>
+                <div class="form-group">
+                    <input type="email" placeholder="Your Email" required>
+                </div>
+                <div class="form-group">
+                    <input type="tel" placeholder="Your Phone" required>
+                </div>
+                <div class="form-group">
+                    <textarea placeholder="Tell us about your travel plans..." rows="4" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Send Inquiry</button>
+            </form>
+        </div>
+    </div>
+
+    <!-- WhatsApp Integration Button -->
+    <div class="whatsapp-float" onclick="openWhatsAppChat()">
+        <i class="fab fa-whatsapp"></i>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h4>Be My Traveller</h4>
+                    <p>Creating unforgettable memories in the heart of Himalayas</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul>
+                        <li><a href="#home">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="inquiry.html">Book Tour</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="https://facebook.com" target="_blank" title="Facebook"><i class="fab fa-facebook"></i></a>
+                        <a href="https://instagram.com" target="_blank" title="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://twitter.com" target="_blank" title="Twitter"><i class="fab fa-twitter"></i></a>
+                        <a href="https://youtube.com" target="_blank" title="YouTube"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="footer-section">
+                    <h4>Newsletter</h4>
+                    <input type="email" placeholder="Enter your email" class="newsletter-input">
+                    <button class="newsletter-btn">Subscribe</button>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2024 Be My Traveller. All rights reserved. | Made with ❤️ in Manali</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

@@ -1,0 +1,84 @@
+# Jekyll configuration for GitHub Pages
+# Be My Traveller Website
+
+# Site Settings
+title: Be My Traveller
+tagline: Adventure Awaits in Manali
+description: >-
+  Be My Traveller is a professional travel company based in Manali, Himachal Pradesh.
+  We specialize in creating unforgettable travel experiences with guided tours, 
+  adventure packages, and personalized itineraries.
+
+url: "https://yourusername.github.io"
+baseurl: "/be-my-traveller"
+
+# Author/Organization
+author:
+  name: Be My Traveller
+  email: info@bemytraveller.com
+
+# Contact Information
+contact:
+  phone: "+91 9876543210"
+  email: "info@bemytraveller.com"
+  address: "Manali, Himachal Pradesh, India"
+  whatsapp: "919876543210"
+
+# Social Links
+social_media_links:
+  facebook: "https://facebook.com/"
+  instagram: "https://instagram.com/"
+  twitter: "https://twitter.com/"
+  youtube: "https://youtube.com/"
+
+# Build Settings
+markdown: kramdown
+theme: jekyll-theme-minimal
+
+# Plugins
+plugins:
+  - jekyll-sitemap
+  - jekyll-seo-tag
+  - jekyll-feed
+
+# Exclude files/folders from build
+exclude:
+  - .git
+  - .gitignore
+  - Gemfile
+  - Gemfile.lock
+  - node_modules
+  - README.md
+  - LICENSE
+
+# Include files/folders in build
+include:
+  - .htaccess
+
+# Collections
+collections_dir: _collections
+
+# Pagination
+paginate: 10
+paginate_path: "/blog/page:num/"
+
+# SEO Settings
+google_analytics: UA-XXXXXXX-X  # Replace with your Google Analytics ID
+
+# Language
+lang: en
+timezone: Asia/Kolkata
+
+# Front matter defaults
+defaults:
+  - scope:
+      path: ""
+    values:
+      layout: default
+
+# kramdown settings for better markdown rendering
+kramdown:
+  input: GFM
+  syntax_highlighter: rouge
+  auto_ids: true
+  toc_levels: 1..6
