@@ -1,6 +1,14 @@
 // ============================================
-// BE MY TRAVELLER - MAIN JAVASCRIPT
+// BE MY TRAVELLER - CONFIG & MAIN JAVASCRIPT
 // ============================================
+
+const CONFIG = {
+    domain: 'bemytraveller.com',
+    phone: '+91 7018465381',
+    whatsappNumber: '917018465381',
+    email: 'info@bemytraveller.com',
+    location: 'Manali, Himachal Pradesh, India'
+};
 
 // DOM Elements
 const hamburger = document.querySelector('.hamburger');
@@ -206,14 +214,26 @@ function handleFormSubmit(event) {
 
     const formData = getFormData();
     
-    // Send to server (you can replace this with actual backend call)
-    console.log('Form Data:', formData);
+    // Save to local leads registry
+    const existingLeads = JSON.parse(localStorage.getItem('bmt_leads') || '[]');
+    existingLeads.push({
+        ...formData,
+        submittedAt: new Date().toISOString()
+    });
+    localStorage.setItem('bmt_leads', JSON.stringify(existingLeads));
+    console.log('Lead Saved:', formData);
 
-    // Show success message
+    // Show success modal
     showSuccessModal();
+
+    // Optionally auto-open WhatsApp with inquiry formatted message
+    setTimeout(() => {
+        openWhatsAppInquiry();
+    }, 1200);
 
     // Reset form
     document.getElementById('inquiryForm').reset();
+    localStorage.removeItem('tourInquiryDraft');
 }
 
 function getFormData() {
@@ -221,19 +241,19 @@ function getFormData() {
         .map(checkbox => checkbox.value);
 
     return {
-        fullName: document.getElementById('fullName').value,
-        email: document.getElementById('email').value,
-        phone: document.getElementById('phone').value,
-        city: document.getElementById('city').value,
-        travelers: document.getElementById('travelers').value,
-        travelDate: document.getElementById('travelDate').value,
-        duration: document.getElementById('duration').value,
-        budget: document.getElementById('budget').value,
+        fullName: document.getElementById('fullName')?.value || '',
+        email: document.getElementById('email')?.value || '',
+        phone: document.getElementById('phone')?.value || '',
+        city: document.getElementById('city')?.value || '',
+        travelers: document.getElementById('travelers')?.value || '',
+        travelDate: document.getElementById('travelDate')?.value || '',
+        duration: document.getElementById('duration')?.value || '',
+        budget: document.getElementById('budget')?.value || '',
         activities: activities,
-        accommodation: document.querySelector('input[name="accommodation"]:checked').value,
-        dietaryNeeds: document.getElementById('dietaryNeeds').value,
-        specialRequests: document.getElementById('specialRequests').value,
-        newsletter: document.getElementById('newsletter').checked
+        accommodation: document.querySelector('input[name="accommodation"]:checked')?.value || '',
+        dietaryNeeds: document.getElementById('dietaryNeeds')?.value || '',
+        specialRequests: document.getElementById('specialRequests')?.value || '',
+        newsletter: document.getElementById('newsletter')?.checked || false
     };
 }
 
@@ -245,24 +265,45 @@ function handleQuickInquiry(event) {
     event.preventDefault();
 
     const form = event.target;
-    const name = form.querySelector('input[placeholder="Your Name"]').value;
-    const email = form.querySelector('input[placeholder="Your Email"]').value;
-    const phone = form.querySelector('input[placeholder="Your Phone"]').value;
-    const message = form.querySelector('textarea').value;
+    const name = form.querySelector('input[placeholder="Your Name"]')?.value || '';
+    const email = form.querySelector('input[placeholder="Your Email"]')?.value || '';
+    const phone = form.querySelector('input[placeholder="Your Phone"]')?.value || '';
+    const message = form.querySelector('textarea')?.value || '';
 
     if (!name || !email || !phone || !message) {
-        alert('Please fill all fields');
+        alert('Please fill all required fields');
         return;
     }
 
-    // You can send this to your backend here
-    console.log({
-        name, email, phone, message
-    });
+    const lead = {
+        type: 'Quick Inquiry',
+        name, email, phone, message,
+        submittedAt: new Date().toISOString()
+    };
 
-    // Show success and close modal
+    const existingLeads = JSON.parse(localStorage.getItem('bmt_leads') || '[]');
+    existingLeads.push(lead);
+    localStorage.setItem('bmt_leads', JSON.stringify(existingLeads));
+
+    // Close modal
     document.getElementById('inquiry-modal').style.display = 'none';
-    alert('Thank you for your inquiry! We will contact you soon.');
+
+    // Format WhatsApp message
+    const waMsg = encodeURIComponent(
+        `🏔️ *New Quick Inquiry - Be My Traveller*\n\n` +
+        `👤 *Name:* ${name}\n` +
+        `📞 *Phone:* ${phone}\n` +
+        `✉️ *Email:* ${email}\n` +
+        `💬 *Message:* ${message}`
+    );
+
+    // Prompt user to send on WhatsApp
+    if (confirm('Thank you for your inquiry! Would you like to connect with our team instantly on WhatsApp?')) {
+        window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${waMsg}`, '_blank');
+    } else {
+        alert('Thank you! We have received your inquiry and will contact you shortly.');
+    }
+
     form.reset();
 }
 
@@ -505,7 +546,7 @@ window.addEventListener('click', function(event) {
 // ============================================
 
 function openWhatsAppChat() {
-    const phoneNumber = '919876543210'; // Replace with your phone number
+    const phoneNumber = CONFIG.whatsappNumber;
     const message = encodeURIComponent('Hi Be My Traveller! I\'m interested in planning a trip to Manali. Can you help me?');
     window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
 }
@@ -517,23 +558,30 @@ function openWhatsAppInquiry() {
         return;
     }
 
-    // Get current form values
-    const fullName = document.getElementById('fullName').value || 'Customer';
-    const travelers = document.getElementById('travelers').value || 'Not specified';
-    const travelDate = document.getElementById('travelDate').value || 'Not specified';
-    const duration = document.getElementById('duration').value || 'Not specified';
+    const formData = getFormData();
+    const fullName = formData.fullName || 'Customer';
+    const phone = formData.phone || 'Not specified';
+    const travelers = formData.travelers || 'Not specified';
+    const travelDate = formData.travelDate || 'Not specified';
+    const duration = formData.duration || 'Not specified';
+    const budget = formData.budget || 'Not specified';
+    const accommodation = formData.accommodation || 'Not specified';
+    const activities = formData.activities.join(', ') || 'General sightseeing';
 
     const message = encodeURIComponent(
-        `Hi Be My Traveller! I'm interested in planning a trip to Manali.\n\n` +
-        `Name: ${fullName}\n` +
-        `Number of Travelers: ${travelers}\n` +
-        `Travel Date: ${travelDate}\n` +
-        `Duration: ${duration}\n\n` +
-        `Please provide more details about packages and pricing.`
+        `🏔️ *Be My Traveller - Tour Inquiry*\n\n` +
+        `👤 *Name:* ${fullName}\n` +
+        `📞 *Contact:* ${phone}\n` +
+        `👥 *Travelers:* ${travelers}\n` +
+        `📅 *Travel Date:* ${travelDate}\n` +
+        `⏱️ *Duration:* ${duration}\n` +
+        `💰 *Budget Tier:* ${budget}\n` +
+        `🏨 *Stay Preference:* ${accommodation}\n` +
+        `🎯 *Interests:* ${activities}\n\n` +
+        `Please send me custom package options & best price quotation!`
     );
 
-    const phoneNumber = '919876543210'; // Replace with your phone number
-    window.open(`https://wa.me/${phoneNumber}?text=${message}`, '_blank');
+    window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${message}`, '_blank');
 }
 
 // ============================================
@@ -728,4 +776,4 @@ setupAutoSave();
 
 console.log('%c🏔️ Welcome to Be My Traveller!', 'font-size: 20px; color: #00a86b; font-weight: bold;');
 console.log('%cVisit us at Manali, Himachal Pradesh', 'font-size: 14px; color: #666;');
-console.log('%cFor inquiries: +91 9876543210 | info@bemytraveller.com', 'font-size: 12px; color: #999;');
+console.log(`%cFor inquiries: ${CONFIG.phone} | ${CONFIG.email}`, 'font-size: 12px; color: #999;');
